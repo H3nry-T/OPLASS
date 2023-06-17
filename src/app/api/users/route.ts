@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import dbConnect from "@backend/mongoDBConnect";
 import User from "@backend/mongooseModels/userModel";
 
@@ -12,7 +12,13 @@ export async function GET() {
   });
 }
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  await dbConnect();
+  const { firstName, lastName, email, isAdmin, company } = await req.json();
+  const addUser = new User({ firstName, lastName, email, isAdmin, company });
+
+  await addUser.save();
+
   return NextResponse.json({
     message: "posted",
   });
