@@ -25,10 +25,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       message: "Email address must be valid",
     },
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
   company: {
     type: String,
     required: false,

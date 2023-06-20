@@ -15,9 +15,8 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   await dbConnect();
-  const { firstName, lastName, email, isAdmin, company }: IUser =
-    await req.json();
-  const addUser = new User({ firstName, lastName, email, isAdmin, company });
+  const { firstName, lastName, email, company }: IUser = await req.json();
+  const addUser = new User({ firstName, lastName, email, company });
 
   await addUser.save();
 
