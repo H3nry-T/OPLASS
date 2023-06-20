@@ -2,22 +2,36 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@backend/mongoDBConnect";
 import Project from "@/utils/backend/mongooseModels/projectModel";
 
-export function GET(req: NextRequest) {
-  return NextResponse.json({ data: "hello there" });
+export async function GET(req: NextRequest) {
+  await dbConnect();
+  const projects = await Project.find({});
+  return NextResponse.json({ projects });
 }
 
 export async function POST(request: NextRequest) {
   await dbConnect();
 
-  //get the body
-  const body = await request.json();
+  try {
+    //get the body
+    const body = await request.json();
+    console.log(body);
+    // check the body is typeof IProject
 
-  //insert into database
-  console.log(body);
-  const newProject = new Project(body);
+    if (!body) {
+      throw new Error("error in the body");
+    }
 
-  await newProject.save();
+    //insert into database
+    const newProject = new Project(body);
+    await newProject.save();
 
-  //show what we inserted
-  return NextResponse.json({ data: body });
+    //show what we inserted
+    return NextResponse.json({ data: body });
+  } catch (e: any) {
+    console.log(e.message);
+    return NextResponse.json(
+      { error: e.message },
+      { status: 500, statusText: "Internal Server Error" }
+    );
+  }
 }

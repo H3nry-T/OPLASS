@@ -1,11 +1,17 @@
 import { IProject, TeamMember } from "@/types/types";
 import mongoose, { Schema } from "mongoose";
-import User from "./userModel";
 
 const ProjectSchema = new mongoose.Schema({
-  projectName: String,
-  projectDescription: String,
-  projectOwner: Number,
+  projectName: {
+    type: String,
+    required: [true, "Project name is required"],
+    minLength: [3, "min value of 3 characters"],
+  },
+  projectDescription: {
+    type: String,
+    required: [true, "Project description is required"],
+  },
+  projectOwner: { type: { type: Schema.Types.ObjectId, ref: "User" } },
   projectTeam: {
     type: [
       {
@@ -13,7 +19,6 @@ const ProjectSchema = new mongoose.Schema({
         ref: "User",
       },
     ],
-    required: true,
     default: [],
     validate: {
       validator: (teamMembers: TeamMember[]) => {
