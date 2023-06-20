@@ -25,3 +25,21 @@ Content-Type: application/json
     "projectName": "project 1",
     "projectDescription": 000
 }
+###
+
+GET http://localhost:3000/api/teams HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/teams/6491b6a622e0a49b78296a6f HTTP/1.1
+
+###
+PATCH http://localhost:3000/api/teams/6491b6a622e0a49b78296a6f HTTP/1.1
+Content-Type: application/json
+
+{
+  "projectTeam": [
+    { "_id": "648dd9bc65731ac0bbd355d8", "role": "developer"},
+    { "_id": "648e0611bc2d1230b469baef", "role": "admin"}
+  ]
+}
