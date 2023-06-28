@@ -15,8 +15,14 @@ const ProjectSchema = new mongoose.Schema({
   projectTeam: {
     type: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        role: {
+          type: String,
+          enum: ["developer", "admin", "manager"],
+        },
       },
     ],
     default: [],
