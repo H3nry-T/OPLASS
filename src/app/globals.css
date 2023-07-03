@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .animation-delay-2 {
+    animation-delay: 2000ms;
+  }
+  .animation-delay-4 {
+    animation-delay: 4000ms;
+  }
+  .animation-delay-6 {
+    animation-delay: 6000ms;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
