@@ -1,3 +1,4 @@
+import { UserButton } from "@clerk/nextjs";
 export default function Home() {
   return (
     <section className="w-full min-h-screen text-gray-100 bg-gray-950">
@@ -43,6 +44,7 @@ export default function Home() {
           </section>
         </div>
       </section>
+      <UserButton afterSignOutUrl="/" />
     </section>
   );
 }
