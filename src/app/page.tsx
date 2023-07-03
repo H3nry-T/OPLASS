@@ -3,9 +3,9 @@ export default function Home() {
     <section className="w-full min-h-screen text-gray-100 bg-gray-950">
       <section className="flex flex-col items-center justify-center max-w-5xl gap-10 p-0 pt-20 pb-10 mx-auto lg:gap-20 lg:flex-row lg:pt-64 ">
         <div className="relative text-gray-100  w-[150px] h-[150px] lg:w-[300px] lg:h-[300px]">
-          <div className="absolute top-0 bg-purple-400 rounded-full opacity-50 h-72 w-72 -left-12 mix-blend-difference filter blur-xl animate-blob "></div>
-          <div className="absolute top-0 bg-orange-400 rounded-full opacity-50 h-72 w-72 mix-blend-difference filter blur-xl -right-12 animate-blob animation-delay-2"></div>
-          <div className="absolute bg-blue-400 rounded-full opacity-50 -bottom-12 h-72 w-72 mix-blend-difference filter blur-xl -right-2 animate-blob animation-delay-4"></div>
+          <div className="absolute top-0 w-48 h-48 bg-purple-400 rounded-full opacity-50 lg:h-72 lg:w-72 -left-12 mix-blend-difference filter blur-xl animate-blob "></div>
+          <div className="absolute top-0 w-48 h-48 bg-orange-400 rounded-full opacity-50 lg:h-72 lg:w-72 mix-blend-difference filter blur-xl -right-12 animate-blob animation-delay-2"></div>
+          <div className="absolute w-48 h-48 bg-blue-400 rounded-full opacity-50 -bottom-12 lg:h-72 lg:w-72 mix-blend-difference filter blur-xl -right-2 animate-blob animation-delay-4"></div>
           <img
             src="/ice-cube.svg"
             alt="ice cube"
