@@ -1,18 +1,24 @@
-import { IProject, TeamMember } from "@/types/types";
-import mongoose, { Schema } from "mongoose";
+import { IProject, TeamMember, IUser } from "@/types/types";
+import mongoose, { Schema, SchemaType } from "mongoose";
 
 const ProjectSchema = new mongoose.Schema({
-  projectName: {
+  project_title: {
     type: String,
-    required: [true, "Project name is required"],
+    required: [true, "Project requires a unique name or title."],
     minLength: [3, "min value of 3 characters"],
+    unique: true
   },
-  projectDescription: {
+  project_description: {
     type: String,
     required: [true, "Project description is required"],
   },
-  projectOwner: { type: { type: Schema.Types.ObjectId, ref: "User" } },
-  projectTeam: {
+  project_createdBy: { type: { type: Schema.Types.ObjectId, ref: "User" } },
+  project_lead : {
+    type: String,
+    required: [true, "Project needs a lead developer assigned"]
+  },
+
+  project_team: {
     type: [
       {
         _id: {
@@ -34,7 +40,15 @@ const ProjectSchema = new mongoose.Schema({
       message: "Invalid role for team member",
     },
   },
-  projectCreatedAt: {
+  project_company: {
+    type: [
+      {_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Company"
+      }}
+    ]
+  },
+  projectCreatedOn: {
     type: Date,
     default: Date.now,
   },
@@ -42,6 +56,51 @@ const ProjectSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  project_bugCount: {
+    type: Number,
+    default: 0
+  },
+  project_deadline: {
+    type: Date
+  },
+  project_tags: {
+    type: [String]
+  },
+  project_outstandingKanbans: {
+    type: Number,
+    default: 0
+  },
+  project_completedKanbans: {
+    type: Number,
+    default: 0
+  },
+  project_status: {
+    type: String,
+    enum: ["planning", "development", "review","bug squashing", "testing", "production", "completed"],
+    default: "planning"
+  },
+  project_admins: {
+    type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User',
+  validate: {
+    validator: async(value: mongoose.Schema.types.ObjectId) => {
+      const selectedUser = await mongoose.model<IUser>('User').findById(value);
+      return selectedUser?.role === 'admin';
+    },
+    message: 'The user assigned needs to have the role of admin'
+  }}],
+    default: []
+
+  },
+  project_deletedOn: Date,
+  project_deletedBy: String,
+  project_priority: {
+    type: String,
+    enum: ['low', 'medium', 'high', 'critical'],
+    default: 'medium'
+  },
+  departments: [String],
+  lastUpdated: Date,
+  gitHubRepo: String
 });
 
 const Project =
