@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { IUser } from "@/types/types";
 
-const userSchema: Schema<IUser> = new mongoose.Schema({
+const UserSchema: Schema<IUser> = new mongoose.Schema({
   user_firstName: {
     type: String,
     required: [true, "User must have a firstName"],
@@ -148,6 +148,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
 });
 
-const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 
 export default User;

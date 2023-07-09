@@ -1,3 +1,5 @@
+import {Types} from "mongoose";
+
 export interface IUser extends Document {
   _id: number;
   user_firstName: string;
@@ -98,4 +100,31 @@ export interface ICompany extends Document {
   company_licenseType: "free" | "personal" | "business" | "corporation" | "charity";
   company_licenseExpiryDate: Date | null;
   company_github?: string;
+}
+
+
+export interface IBugs extends Document {
+  bug_title: string;
+  bug_createdOn: Date;
+  bug_completedOn?: Date;
+  bug_lead?: Types.ObjectId;
+  bug_team: {_id: Types.ObjectId}[];
+  bug_users: {_id: Types.ObjectId}[];
+  bug_correspondingTickets: {_id: Types.ObjectId}[];
+  bug_description: string;
+  bug_tags?: string[];
+  bug_status: "pending" | "unresolved" | "under review" | "resolved";
+  bug_assignedAdmins?: {_id: string}[];
+  bug_deletedOn?: Date;
+  bug_deletedBy?: Types.ObjectId;
+  bug_priority: "low" | "medium" | "high" | "critical";
+  bug_lastUpdated: Date;
+  bug_notes?: {
+    noteTitle: string;
+    noteContent: string;
+    noteCreatedBy: Types.ObjectId;
+  }[];
+  bug_logo?: string;
+  bug_images?: {image: string}[];
+  bug_signedOffBy?: {signedOffName: String; signedOffDate: Date}[];
 }
