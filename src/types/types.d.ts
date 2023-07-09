@@ -77,5 +77,25 @@ interface TeamMember extends IUser {
 }
 
 export interface ICompany extends Document {
-
+  company_name: string;
+  company_staff: {employee_id: Types.ObjectId}[];
+  company_address: {
+    address_line1: string;
+    address_line2: string;
+    address_city: string;
+    address_region: string;
+    address_country: string;
+    address_postcode: string;
+  },
+  company_phoneNumbers: {key: string; value: string}[];
+  company_numberOfEmployees: number;
+  company_emails: {emailName: string; emailAddress: string}[];
+  company_createdOn: Date;
+  company_activeTickets: number;
+  company_activeBugs: number;
+  company_activeProjects: {projectId: Types.ObjectId}[];
+  company_broadcastMessages: {broadcastTitle: string; broadcastContent: string}[];
+  company_licenseType: "free" | "personal" | "business" | "corporation" | "charity";
+  company_licenseExpiryDate: Date | null;
+  company_github?: string;
 }

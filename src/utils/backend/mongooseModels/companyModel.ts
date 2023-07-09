@@ -20,24 +20,28 @@ const CompanySchema = new mongoose.Schema<ICompany>({
   company_address: {
     address_line1: {
       type: String,
+      required: [true, 'Company address needs a first line']
     },
     address_line2: {
       type: String,
       default: ""
     },
     address_city: {
-      type: String
+      type: String,
+      required: [true, 'Company address needs a town, or city']
     },
     address_region: {
-      type: String
+      type: String,
+      required: [true,'Company address needs a district, region or county']
     },
     address_country: {
-      type: String
+      type: String,
+      required: [true, 'Company address needs a Country']
     },
     address_postcode: {
-      type: String
-    },
-    required: [true, 'Company must have an address']
+      type: String,
+      required: [true, 'Company address needs a postcode']
+    }
   },
 company_phoneNumbers: [{
     key: {
@@ -57,9 +61,9 @@ company_phoneNumbers: [{
     default: 1
   },
   company_emails: [{
-    name: {
+    emailName: {
         type: String,
-        required: [true, "Email must have a name"]
+        required: [true, "Email must have an department/name"]
     },
     emailAddress: {
         type: String,
@@ -92,9 +96,14 @@ company_phoneNumbers: [{
   }],
   company_broadcastMessages: {
     type: [
-        {title: {
+        {broadcastTitle: {
             type: String,
             required: [true, "Broadcast Message must have a title"]
+        }},
+        {broadcastContent: {
+            type: String,
+            required: [true, "Broadcast Message must have content of 5 characters or more"],
+            minLength: 5
         }}
     ]
   },
