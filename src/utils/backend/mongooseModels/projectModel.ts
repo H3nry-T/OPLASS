@@ -27,7 +27,7 @@ const ProjectSchema = new mongoose.Schema({
         },
         role: {
           type: String,
-          enum: ["developer", "admin", "manager"],
+          enum: ["developer", "admin", "manager", "tester", ],
         },
       },
     ],
@@ -48,11 +48,11 @@ const ProjectSchema = new mongoose.Schema({
       }}
     ]
   },
-  projectCreatedOn: {
+  project_CreatedOn: {
     type: Date,
     default: Date.now,
   },
-  projectLastUpdated: {
+  project_lastUpdated: {
     type: Date,
     default: Date.now,
   },
@@ -98,9 +98,8 @@ const ProjectSchema = new mongoose.Schema({
     enum: ['low', 'medium', 'high', 'critical'],
     default: 'medium'
   },
-  departments: [String],
-  lastUpdated: Date,
-  gitHubRepo: String
+  project_departments: [String],
+  project_gitHubRepo: String
 });
 
 const Project =
