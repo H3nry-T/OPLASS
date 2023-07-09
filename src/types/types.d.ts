@@ -1,16 +1,54 @@
 export interface IUser extends Document {
   _id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  company: string;
+  user_firstName: string;
+  user_lastName: string;
+  user_email: string;
+  user_company: {
+    _id: mongoose.Types.ObjectId;
+  }[] | "none";
+  user_createdOn: Date;
+  user_address: {
+    address_line1?: string;
+    address_line2?: string;
+    address_city?: string;
+    address_region?: string;
+    address_country?: string;
+    address_postcode?: string;
+  };
+  user_phoneNumbers: {
+    home?: string;
+    work?: string;
+    mobile?: string;
+  };
+  user_role: "developer" | "admin" | "manager";
+  user_teams: string[];
+  user_deletedOn?: Date;
+  user_deletedBy?: string;
+  user_ticketsCreated: number;
+  user_bugsRaised: number;
+  user_ticketsCompleted: number;
+  user_bugsResolved: number;
+  user_lastActive: Date;
+  user_icon: string;
+  user_avatar: string;
+  user_personalNotes: {
+    title: string;
+    content: string;
+  }[];
+  license: {
+    user_licenseType: "free" | "personal" | "business" | "corporation" | "charity";
+    user_licenseExpiryDate: Date | null;
+  }[];
+  user_githubAccount?: string;
+
 }
 
 export interface IProject extends Document {
+  _id: number,
   project_title: string;
   project_description: string;
   project_createdBy: TypeScriptConfig.ObjectId | IUser;
-  project_lead: String,
+  project_lead: string,
   project_team: {
     _id: Types.ObjectId | IUser;
     role: 'developer' | 'admin' | 'manager' | 'tester';
@@ -18,18 +56,18 @@ export interface IProject extends Document {
   project_company: Types.ObjectId[] | ICompany[];
   project_createdOn: Date;
   project_lastUpdated: Date;
-  project_bugCount: Number;
+  project_bugCount: number;
   project_deadline?: Date;
-  project_tags?: String[];
-  project_outstandingKanbans: Number;
-  project_completedKanbans: Number;
+  project_tags?: string[];
+  project_outstandingKanbans: number;
+  project_completedKanbans: number;
   project_status: 'planning' | 'development' | 'review' | 'bug squashing' | 'testing' | 'production' | 'completed'
   project_admins: Type.ObjectId[] | IUser[];
   project_deletedOn?: Date;
-  project_deletedBy?: String;
+  project_deletedBy?: string;
   project_priority: 'low' | 'medium' | 'high' | 'critical';
-  project_department?: String[];
-  project_githubRepo?: String;
+  project_department?: string[];
+  project_githubRepo?: string;
 
   
 }
