@@ -1,7 +1,7 @@
 import { IProject, TeamMember, IUser } from "@/types/types";
 import mongoose, { Schema, SchemaType } from "mongoose";
 
-const ProjectSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema<IProject>({
   project_title: {
     type: String,
     required: [true, "Project requires a unique name or title."],
