@@ -66,14 +66,15 @@ export interface IProject extends Document {
   project_outstandingKanbans: number;
   project_completedKanbans: number;
   project_status: 'planning' | 'development' | 'review' | 'bug fixing' | 'testing' | 'production' | 'completed'
-  project_admins: Type.ObjectId[] | IUser[];
+  project_admins: Types.ObjectId[] | IUser[];
   project_deletedOn?: Date;
   project_deletedBy?: string;
   project_isDeleted: boolean;
   project_priority: 'low' | 'medium' | 'high' | 'critical';
   project_department?: string[];
   project_githubRepo?: string;
-
+  project_notes: {noteTitle: string, noteContent: string, noteCreatedBy: Types.ObjectId, noteType: "comment" | "warning" | "update" | "fix" | "idea" | "report"}[];
+  project_alertMessagesFromAdmin: {alertMessageTitle: string, alertMessageContent: string, alertMessageCreatedBy: Types.ObjectId}[];
   
 }
 

@@ -48,7 +48,7 @@ const ProjectSchema = new mongoose.Schema<IProject>({
       }}
     ]
   },
-  project_CreatedOn: {
+  project_createdOn: {
     type: Date,
     default: Date.now,
   },
@@ -103,7 +103,61 @@ const ProjectSchema = new mongoose.Schema<IProject>({
     default: 'medium'
   },
   project_departments: [String],
-  project_gitHubRepo: String
+  project_githubRepo: String,
+  project_notes: {
+    type: [
+      {
+        noteTitle: {
+          type: String,
+          required: [true, "Project notes require a title"],
+          minLength: 3
+        },
+        noteContent: {
+          type: String,
+          required: [true, "Project notes require some content"],
+          minLength: 5
+        },
+        noteCreatedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        noteType: {
+          type: String,
+          required: [true, "Project note requires a type"],
+          enum: ["comment", "warning", "update", "fix", "idea", "report"],
+          default: "comment"
+        }
+      },
+    ],
+    default: []
+  },
+  project_alertMessagesFromAdmin: {
+    type: [
+      {
+        alertMessageTitle: {
+          type: String,
+          required: [true, "Alert Message must have a title"]
+        },
+        alertMessageContent: {
+          type: String,
+          required: [true, "Alert message needs to have a message"],
+          minLength: 3
+        },
+        alertMessageCreatedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            validate: {
+              validator: async(value: mongoose.Schema.types.ObjectId) => {
+                const selectedUser = await mongoose.model<IUser>('User').findById(value);
+                return selectedUser?.role === 'admin';
+              },
+              message: 'Alerts can only be posted by admin'
+            },
+              default: []
+        }
+      }
+    ]
+  }
 });
 
 const Project =
