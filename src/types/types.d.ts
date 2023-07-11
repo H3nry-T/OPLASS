@@ -104,6 +104,7 @@ export interface ICompany extends Document {
   company_licenseType: "free" | "personal" | "business" | "corporation" | "charity";
   company_licenseExpiryDate: Date | null;
   company_github?: string;
+  company_isDeleted: boolean;
 }
 
 

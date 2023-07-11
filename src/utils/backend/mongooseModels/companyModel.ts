@@ -117,6 +117,10 @@ company_phoneNumbers: [{
     default: null
   },
   company_github: String,
+  company_isDeleted: {
+    type: Boolean,
+    default: false
+  }
 
 });
 
