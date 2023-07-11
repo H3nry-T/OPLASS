@@ -65,7 +65,7 @@ export interface IProject extends Document {
   project_tags?: string[];
   project_outstandingKanbans: number;
   project_completedKanbans: number;
-  project_status: 'planning' | 'development' | 'review' | 'bug squashing' | 'testing' | 'production' | 'completed'
+  project_status: 'planning' | 'development' | 'review' | 'bug fixing' | 'testing' | 'production' | 'completed'
   project_admins: Type.ObjectId[] | IUser[];
   project_deletedOn?: Date;
   project_deletedBy?: string;
