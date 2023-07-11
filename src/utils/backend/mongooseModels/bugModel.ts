@@ -114,7 +114,13 @@ const BugSchema = new mongoose.Schema<IBugs>({
         image: {
           type: String,
           required: true,
+          minLength: 5
         },
+        altText: {
+          type: String,
+          required:[true, "Please provide some descriptive alt text for the image"],
+          minLength: 5
+        }
       },
     ],
   },

@@ -6,7 +6,7 @@ export interface IUser extends Document {
   user_lastName: string;
   user_email: string;
   user_company: {
-    _id: mongoose.Types.ObjectId;
+    _id: Types.ObjectId;
   }[] | "none";
   user_createdOn: Date;
   user_address: {
@@ -50,7 +50,7 @@ export interface IProject extends Document {
   _id: number,
   project_title: string;
   project_description: string;
-  project_createdBy: TypeScriptConfig.ObjectId | IUser;
+  project_createdBy: Types.ObjectId | IUser;
   project_lead: string,
   project_team: {
     _id: Types.ObjectId | IUser;
@@ -129,3 +129,32 @@ export interface IBugs extends Document {
   bug_images?: {image: string}[];
   bug_signedOffBy?: {signedOffName: String; signedOffDate: Date}[];
 }
+
+export interface IKanban extends Document {
+  kanban_title: string;
+  kanban_description: string;
+  kanban_createdOn: Date;
+  kanban_createdBy: Types.ObjectId;
+  kanban_associatedProject: Types.ObjectId;
+  kanban_lead: Types.ObjectId;
+  kanban_company: Types.ObjectId;
+  kanban_team: {_id: Types.ObjectId; role: "developer" | "admin" | "manager" | "tester"}[];
+  kanban_users: {_id: Types.ObjectId}[];
+  kanban_bugCount: number;
+  kanban_bugs: Types.ObjectId[];
+  kanban_deadline: Date | null;
+  kanban_tags: string[];
+  kanban_status: "raised" | "in progress" | "on hold" | "bug fixing" | "cancelled" | "deleted" | "testing" | "production" | "completed";
+  kanban_assignedAdmin: Types.ObjectId;
+  kanban_completedOn: Date | null;
+  kanban_deletedOn: Date | null;
+  kanban_deletedBy: Types.ObjectId;
+  kanban_priority: "low" | "medium" | "high" | "critical";
+  kanban_departments: string[];
+  kanban_lastUpdated: Date;
+  kanban_gitHubBranch: string;
+  kanban_notes: {noteTitle: string, noteContent: string}[];
+  kanban_logo: string;
+  kanban_images: {image: string, alt: string}[];
+  kanban_isDeleted: boolean;
+ }

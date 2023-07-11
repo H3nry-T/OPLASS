@@ -76,7 +76,7 @@ const ProjectSchema = new mongoose.Schema<IProject>({
   },
   project_status: {
     type: String,
-    enum: ["planning", "development", "review","bug squashing", "testing", "production", "completed"],
+    enum: ["planning", "development", "review","bug fixing", "testing", "production", "completed"],
     default: "planning"
   },
   project_admins: {
