@@ -93,6 +93,10 @@ const ProjectSchema = new mongoose.Schema<IProject>({
   },
   project_deletedOn: Date,
   project_deletedBy: String,
+  project_isDeleted: {
+    type: Boolean,
+    default: false
+  },
   project_priority: {
     type: String,
     enum: ['low', 'medium', 'high', 'critical'],

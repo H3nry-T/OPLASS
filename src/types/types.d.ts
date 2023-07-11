@@ -69,6 +69,7 @@ export interface IProject extends Document {
   project_admins: Type.ObjectId[] | IUser[];
   project_deletedOn?: Date;
   project_deletedBy?: string;
+  project_isDeleted: boolean;
   project_priority: 'low' | 'medium' | 'high' | 'critical';
   project_department?: string[];
   project_githubRepo?: string;
