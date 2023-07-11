@@ -130,6 +130,12 @@ const UserSchema: Schema<IUser> = new mongoose.Schema({
     ],
     default: []
   },
+  user_personalProjects: [{
+    projectId: {
+        type: Schema.Types.ObjectId,
+        ref: "Project"
+    }
+  }],
   license: {
     type: [{
       user_licenseType: {

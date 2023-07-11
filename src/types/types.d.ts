@@ -37,6 +37,7 @@ export interface IUser extends Document {
     title: string;
     content: string;
   }[];
+  user_personalProjects: {projectId: Types.ObjectId}[];
   license: {
     user_licenseType: "free" | "personal" | "business" | "corporation" | "charity";
     user_licenseExpiryDate: Date | null;
