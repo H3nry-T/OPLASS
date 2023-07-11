@@ -138,5 +138,13 @@ const BugSchema = new mongoose.Schema<IBugs>({
             }
         }
     ]
+  },
+  bug_emailAlerts: {
+    type: Boolean,
+    default: false
+  },
+  bug_isDeleted: {
+    type: Boolean,
+    default: false
   }
 });

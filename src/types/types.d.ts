@@ -132,6 +132,8 @@ export interface IBugs extends Document {
   bug_logo?: string;
   bug_images?: {image: string}[];
   bug_signedOffBy?: {signedOffName: String; signedOffDate: Date}[];
+  bug_emailAlerts: boolean;
+  bug_isDeleted: boolean;
 }
 
 export interface IKanban extends Document {
