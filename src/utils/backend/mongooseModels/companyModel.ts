@@ -116,7 +116,7 @@ company_phoneNumbers: [{
     type: [Date, null],
     default: null
   },
-  company_github: String
+  company_github: String,
 
 });
 

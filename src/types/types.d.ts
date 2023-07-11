@@ -26,6 +26,7 @@ export interface IUser extends Document {
   user_teams: string[];
   user_deletedOn?: Date;
   user_deletedBy?: string;
+  user_isDeleted: boolean;
   user_ticketsCreated: number;
   user_bugsRaised: number;
   user_ticketsCompleted: number;

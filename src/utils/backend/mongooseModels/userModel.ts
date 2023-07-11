@@ -83,12 +83,16 @@ const UserSchema: Schema<IUser> = new mongoose.Schema({
   },
   user_role: {
     type: String,
-    enum: ["developer", "admin", "manager"],
-    required: [true, 'User must have a role: developer, admin, manager']
+    enum: ["developer", "admin", "manager", "tester"],
+    required: [true, 'User must have a role: developer, admin, manager, "tester']
   },
   user_teams: [String],
   user_deletedOn: Date,
   user_deletedBy: String,
+  user_isDeleted: {
+    type: Boolean,
+    default: false
+  }
   user_ticketsCreated: {
     type: Number,
     default: 0
@@ -149,7 +153,11 @@ const UserSchema: Schema<IUser> = new mongoose.Schema({
       }
     }]
   },
-  user_githubAccount: String
+  user_githubAccount: String,
+  user_isDeleted: {
+    type: Boolean,
+    default: false
+  }
 
 
 });
