@@ -32,7 +32,13 @@ export default function NavBar() {
               </NavigationMenu.Link>
             </>
           ) : (
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl="/" appearance= {{
+              elements: {
+                userButtonPopoverActionButtonText: '  capitalize font-semibold text-sm',
+                userButtonPopoverCard: 'rounded-lg',
+                userButtonPopoverFooter: 'hidden'
+              }
+            }} />
           )}
         </NavigationMenu.Item>
         <NavigationMenu.Indicator />
