@@ -1,37 +1,37 @@
 import mongoose from "mongoose";
-import {IKanban} from "@types/types";
+import { IKanban, TeamMember } from "../../../types/types";
 
-const KanbanSchema: Schema<IKanban> = new mongoose.Schema ({
- kanban_title: {
+const KanbanSchema: mongoose.Schema<IKanban> = new mongoose.Schema({
+  kanban_title: {
     type: String,
-    required: [true, "Kanban cards require a title"]
- },
- kanban_description: {
+    required: [true, "Kanban cards require a title"],
+  },
+  kanban_description: {
     type: String,
     required: [true, "Kanban cards require a description"],
-    minLength: 8
-},
- kanban_createdOn: {
+    minLength: 8,
+  },
+  kanban_createdOn: {
     type: Date,
-    default: Date.now
- },
- kanban_createdBy: {
+    default: Date.now,
+  },
+  kanban_createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
- },
- kanban_associatedProject: {
+    ref: "User",
+  },
+  kanban_associatedProject: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Project"
- },
- kanban_lead: {
+    ref: "Project",
+  },
+  kanban_lead: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
- },
- kanban_company: {
+    ref: "User",
+  },
+  kanban_company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Company"
- },
- kanban_team: {
+    ref: "Company",
+  },
+  kanban_team: {
     type: [
       {
         _id: {
@@ -40,133 +40,139 @@ const KanbanSchema: Schema<IKanban> = new mongoose.Schema ({
         },
         role: {
           type: String,
-          enum: ["developer", "admin", "manager", "tester", ],
+          enum: ["developer", "admin", "manager", "tester"],
         },
       },
     ],
     default: [],
-    validate: {
-      validator: (teamMembers: TeamMember[]) => {
-        const roles = ["developer", "manager", "admin"];
-        return teamMembers.every((member) => roles.includes(member.role));
+  },
+  kanban_users: {
+    type: [
+      {
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
       },
-      message: "Invalid role for team member",
-    }
-},
-kanban_users: {
-    type: [
-        {
-            _id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        }
     ],
-    default: []
-},
-kanban_bugCount: {
+    default: [],
+  },
+  kanban_bugCount: {
     type: Number,
-    default: 0
-},
-kanban_bugs: {
+    default: 0,
+  },
+  kanban_bugs: {
     type: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Bug"
-        }
-    ], default: []
-},
-kanban_deadline: {
-    type: [Date, null],
-    default: null
-},
-kanban_tags: {
-    type: [String]
-},
-kanban_status: {
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Bug",
+      },
+    ],
+    default: [],
+  },
+  kanban_deadline: {
+    type: Date || null,
+    default: null,
+  },
+  kanban_tags: {
+    type: [String],
+  },
+  kanban_status: {
     type: String,
-    enum: ["raised", "in progress", "on hold", "bug fixing", "cancelled", "deleted", "testing", "production", "completed"],
-    default: "raised"
-},
-kanban_assignedAdmin: {
+    enum: [
+      "raised",
+      "in progress",
+      "on hold",
+      "bug fixing",
+      "cancelled",
+      "deleted",
+      "testing",
+      "production",
+      "completed",
+    ],
+    default: "raised",
+  },
+  kanban_assignedAdmin: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     validate: {
-        validator: async function (value: string) {
-            const userAdminCheck = await mongoose.model("User").findById(value);
-            return userAdminCheck && userAdminCheck.role === "admin";
-            
-        },
-        message: "The assigned user must have their role set as admin"
-
-    }
-},
-kanban_completedOn: {
+      validator: async function (value: mongoose.Schema.Types.ObjectId) {
+        const userAdminCheck = await mongoose.model("User").findById(value);
+        return userAdminCheck && userAdminCheck.user_role === "admin";
+      },
+      message: "The assigned user must have their role set as admin",
+    },
+  },
+  kanban_completedOn: {
     type: [Date, null],
-    default: null
-},
-kanban_deletedOn: {
+    default: null,
+  },
+  kanban_deletedOn: {
     type: [Date, null],
-    default: null
-},
-kanban_deletedBy: {
+    default: null,
+  },
+  kanban_deletedBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-},
-kanban_priority: {
+    ref: "User",
+  },
+  kanban_priority: {
     type: String,
     enum: ["low", "medium", "high", "critical"],
-    default: "medium"
-},
-kanban_departments: {
+    default: "medium",
+  },
+  kanban_departments: {
     type: [String],
-    default: []
-},
-kanban_lastUpdated: {
+    default: [],
+  },
+  kanban_lastUpdated: {
     type: Date,
-    default: Date.now
-},
+    default: Date.now,
+  },
 
-kanban_gitHubBranch: {
-    type: String
-},
-kanban_notes: [{
-    noteTitle: {
-      type: String,
-      required: [true, "Notes for kanban cards require a title"],
+  kanban_gitHubBranch: {
+    type: String,
+  },
+  kanban_notes: [
+    {
+      noteTitle: {
+        type: String,
+        required: [true, "Notes for kanban cards require a title"],
+      },
+      noteContent: {
+        type: String,
+        required: [true, "Notes for kanban cards require content"],
+      },
     },
-    noteContent: {
-      type: String,
-      required: [true, "Notes for kanban cards require content"],
-    },
-  }],
+  ],
 
-kanban_logo: {
-    type: String
-},
-kanban_images: {
-    type: [{
-        image:{
-            type: String,
-            required: true,
-            minLength: 5
+  kanban_logo: {
+    type: String,
+  },
+  kanban_images: {
+    type: [
+      {
+        image: {
+          type: String,
+          required: true,
+          minLength: 5,
         },
         alt: {
-            type: String,
-            required: [true, "Please include some descriptive alt text for the image"],
-            minLength: 5
-        }
-    }]
-},
-kanban_isDeleted: {
+          type: String,
+          required: [
+            true,
+            "Please include some descriptive alt text for the image",
+          ],
+          minLength: 5,
+        },
+      },
+    ],
+  },
+  kanban_isDeleted: {
     type: Boolean,
-    default: false
-}
-
-
+    default: false,
+  },
 });
 
 const KanbanTicket = mongoose.model<IKanban>("KanbanTicket", KanbanSchema);
-
 
 export default KanbanTicket;

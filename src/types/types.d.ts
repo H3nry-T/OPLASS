@@ -61,10 +61,10 @@ export interface IProject extends Document {
   project_createdBy: Types.ObjectId | IUser;
   project_lead: string;
   project_team: {
-    _id: Types.ObjectId | IUser;
+    _id: Types.ObjectId;
     role: "developer" | "admin" | "manager" | "tester";
   }[];
-  project_company: Types.ObjectId[] | ICompany[];
+  project_company: Types.ObjectId;
   project_createdOn: Date;
   project_lastUpdated: Date;
   project_bugCount: number;
@@ -85,7 +85,7 @@ export interface IProject extends Document {
   project_deletedBy?: string;
   project_isDeleted: boolean;
   project_priority: "low" | "medium" | "high" | "critical";
-  project_department?: string[];
+  project_departments?: string[];
   project_githubRepo?: string;
   project_notes: {
     noteTitle: string;

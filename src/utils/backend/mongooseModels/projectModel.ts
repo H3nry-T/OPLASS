@@ -6,16 +6,16 @@ const ProjectSchema = new mongoose.Schema<IProject>({
     type: String,
     required: [true, "Project requires a unique name or title."],
     minLength: [3, "min value of 3 characters"],
-    unique: true
+    unique: true,
   },
   project_description: {
     type: String,
     required: [true, "Project description is required"],
   },
-  project_createdBy: { type: { type: Schema.Types.ObjectId, ref: "User" } },
-  project_lead : {
+  project_createdBy: { type: Schema.Types.ObjectId, ref: "User" },
+  project_lead: {
     type: String,
-    required: [true, "Project needs a lead developer assigned"]
+    required: [true, "Project needs a lead developer assigned"],
   },
 
   project_team: {
@@ -27,26 +27,15 @@ const ProjectSchema = new mongoose.Schema<IProject>({
         },
         role: {
           type: String,
-          enum: ["developer", "admin", "manager", "tester", ],
+          enum: ["developer", "admin", "manager", "tester"],
         },
       },
     ],
     default: [],
-    validate: {
-      validator: (teamMembers: TeamMember[]) => {
-        const roles = ["developer", "manager", "admin"];
-        return teamMembers.every((member) => roles.includes(member.role));
-      },
-      message: "Invalid role for team member",
-    },
   },
   project_company: {
-    type: [
-      {_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Company"
-      }}
-    ]
+    type: Schema.Types.ObjectId,
+    ref: "Company",
   },
   project_createdOn: {
     type: Date,
@@ -58,49 +47,63 @@ const ProjectSchema = new mongoose.Schema<IProject>({
   },
   project_bugCount: {
     type: Number,
-    default: 0
+    default: 0,
   },
   project_deadline: {
-    type: Date
+    type: Date,
   },
   project_tags: {
-    type: [String]
+    type: [String],
   },
   project_outstandingKanbans: {
     type: Number,
-    default: 0
+    default: 0,
   },
   project_completedKanbans: {
     type: Number,
-    default: 0
+    default: 0,
   },
   project_status: {
     type: String,
-    enum: ["planning", "development", "review","bug fixing", "testing", "production", "completed"],
-    default: "planning"
+    enum: [
+      "planning",
+      "development",
+      "review",
+      "bug fixing",
+      "testing",
+      "production",
+      "completed",
+    ],
+    default: "planning",
   },
   project_admins: {
-    type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User',
-  validate: {
-    validator: async(value: mongoose.Schema.types.ObjectId) => {
-      const selectedUser = await mongoose.model<IUser>('User').findById(value);
-      return selectedUser?.role === 'admin';
-    },
-    message: 'The user assigned needs to have the role of admin'
-  }}],
-    default: []
-
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        validate: {
+          validator: async (value: mongoose.Schema.Types.ObjectId) => {
+            const selectedUser = await mongoose
+              .model<IUser>("User")
+              .findById(value);
+            return selectedUser?.user_role === "admin";
+          },
+          message: "The user assigned needs to have the role of admin",
+        },
+      },
+    ],
+    default: [],
   },
   project_deletedOn: Date,
   project_deletedBy: String,
   project_isDeleted: {
     type: Boolean,
-    default: false
+    default: false,
   },
   project_priority: {
     type: String,
-    enum: ['low', 'medium', 'high', 'critical'],
-    default: 'medium'
+    enum: ["low", "medium", "high", "critical"],
+    default: "medium",
   },
   project_departments: [String],
   project_githubRepo: String,
@@ -110,12 +113,12 @@ const ProjectSchema = new mongoose.Schema<IProject>({
         noteTitle: {
           type: String,
           required: [true, "Project notes require a title"],
-          minLength: 3
+          minLength: 3,
         },
         noteContent: {
           type: String,
           required: [true, "Project notes require some content"],
-          minLength: 5
+          minLength: 5,
         },
         noteCreatedBy: {
           type: mongoose.Schema.Types.ObjectId,
@@ -125,39 +128,41 @@ const ProjectSchema = new mongoose.Schema<IProject>({
           type: String,
           required: [true, "Project note requires a type"],
           enum: ["comment", "warning", "update", "fix", "idea", "report"],
-          default: "comment"
-        }
+          default: "comment",
+        },
       },
     ],
-    default: []
+    default: [],
   },
   project_alertMessagesFromAdmin: {
     type: [
       {
         alertMessageTitle: {
           type: String,
-          required: [true, "Alert Message must have a title"]
+          required: [true, "Alert Message must have a title"],
         },
         alertMessageContent: {
           type: String,
           required: [true, "Alert message needs to have a message"],
-          minLength: 3
+          minLength: 3,
         },
         alertMessageCreatedBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            validate: {
-              validator: async(value: mongoose.Schema.types.ObjectId) => {
-                const selectedUser = await mongoose.model<IUser>('User').findById(value);
-                return selectedUser?.role === 'admin';
-              },
-              message: 'Alerts can only be posted by admin'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          validate: {
+            validator: async (value: mongoose.Schema.Types.ObjectId) => {
+              const selectedUser = await mongoose
+                .model<IUser>("User")
+                .findById(value);
+              return selectedUser?.user_role === "admin";
             },
-              default: []
-        }
-      }
-    ]
-  }
+            message: "Alerts can only be posted by admin",
+          },
+          default: [],
+        },
+      },
+    ],
+  },
 });
 
 const Project =
