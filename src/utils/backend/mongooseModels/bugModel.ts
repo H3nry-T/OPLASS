@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import {IBugs} from "@/types/types";
+import { IBugs } from "@/types/types";
 
 const BugSchema = new mongoose.Schema<IBugs>({
   bug_title: {
@@ -81,7 +81,7 @@ const BugSchema = new mongoose.Schema<IBugs>({
   bug_priority: {
     type: String,
     enum: ["low", "medium", "high", "critical"],
-    default: "medium"
+    default: "medium",
   },
   bug_lastUpdated: {
     type: Date,
@@ -114,37 +114,43 @@ const BugSchema = new mongoose.Schema<IBugs>({
         image: {
           type: String,
           required: true,
-          minLength: 5
+          minLength: 5,
         },
         altText: {
           type: String,
-          required:[true, "Please provide some descriptive alt text for the image"],
-          minLength: 5
-        }
+          required: [
+            true,
+            "Please provide some descriptive alt text for the image",
+          ],
+          minLength: 5,
+        },
       },
     ],
   },
   bug_signedOffBy: {
     type: [
-        {
-            signedOffName: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-                required: [true, "Signing off a bug requires a name"]
-            },
-            signedOffDate: {
-                type: Date,
-                default: Date.now
-            }
-        }
-    ]
+      {
+        signedOffName: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: [true, "Signing off a bug requires a name"],
+        },
+        signedOffDate: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   bug_emailAlerts: {
     type: Boolean,
-    default: false
+    default: false,
   },
   bug_isDeleted: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
+
+const BugReport = mongoose.model<IBugs>("BugReport", BugSchema);
+export default BugReport;

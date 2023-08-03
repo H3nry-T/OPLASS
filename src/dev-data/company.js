@@ -1,6 +1,6 @@
 [
   {
-    _id: "breakingcad6000"
+    _id: "breakingcad6000",
     company_name: "Breaking Cad",
     company_staff: ["walterwa1", "jesspink2", "sgoodman3"],
     company_address: {
