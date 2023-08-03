@@ -21,12 +21,10 @@ export default function RootLayout({
       appearance={{
         baseTheme: dark,
         variables: {
-          colorBackground: '#111',
-          colorTextSecondary: '#9CA3AF',
+          colorBackground: "#111",
+          colorTextSecondary: "#9CA3AF",
           // fontFamily: ''
         },
-      
-  
       }}
     >
       <html lang="en">

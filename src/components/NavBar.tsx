@@ -13,7 +13,7 @@ export default function NavBar() {
       <NavigationMenu.List className="flex items-center justify-between gap-8 px-5 py-4 mx-auto max-w-7xl ">
         <NavigationMenu.Item className="flex items-center gap-4 font-semibold">
           <NavLogo />
-          <NavLink href="/dashboard">dashboard</NavLink>
+          <NavLink href="/dashboard/home">dashboard</NavLink>
         </NavigationMenu.Item>
         <NavigationMenu.Item className="flex items-center gap-2 text-lg font-semibold tracking-tight capitalize">
           {!isSignedIn || !isLoaded ? (
@@ -32,13 +32,17 @@ export default function NavBar() {
               </NavigationMenu.Link>
             </>
           ) : (
-            <UserButton afterSignOutUrl="/" appearance= {{
-              elements: {
-                userButtonPopoverActionButtonText: '  capitalize font-semibold text-sm',
-                userButtonPopoverCard: 'rounded-lg',
-                userButtonPopoverFooter: 'hidden'
-              }
-            }} />
+            <UserButton
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  userButtonPopoverActionButtonText:
+                    "  capitalize font-semibold text-sm",
+                  userButtonPopoverCard: "rounded-lg",
+                  userButtonPopoverFooter: "hidden",
+                },
+              }}
+            />
           )}
         </NavigationMenu.Item>
         <NavigationMenu.Indicator />
