@@ -95,20 +95,31 @@ const KanbanSchema: mongoose.Schema<IKanban> = new mongoose.Schema({
   kanban_assignedAdmin: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    default: null,
+    required: true,
     validate: {
-      validator: async function (value: mongoose.Schema.Types.ObjectId) {
-        const userAdminCheck = await mongoose.model("User").findById(value);
-        return userAdminCheck && userAdminCheck.user_role === "admin";
+      validator: async function (
+        value: mongoose.Schema.Types.ObjectId | null
+      ): Promise<boolean> {
+        if (value === null) {
+          return true;
+        }
+        try {
+          const userIsAdminCheck = await mongoose.model("User").findById(value);
+          return userIsAdminCheck && userIsAdminCheck.user_role === "admin";
+        } catch (error) {
+          return false;
+        }
       },
       message: "The assigned user must have their role set as admin",
     },
   },
   kanban_completedOn: {
-    type: [Date, null],
+    type: Date,
     default: null,
   },
   kanban_deletedOn: {
-    type: [Date, null],
+    type: Date,
     default: null,
   },
   kanban_deletedBy: {
@@ -171,6 +182,12 @@ const KanbanSchema: mongoose.Schema<IKanban> = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+});
+
+KanbanSchema.pre<IKanban>("save", async function (next) {
+  if (!this.kanban_assignedAdmin) {
+    this.kanban_assignedAdmin = null;
+  }
 });
 
 const KanbanTicket = mongoose.model<IKanban>("KanbanTicket", KanbanSchema);

@@ -192,7 +192,7 @@ export interface IKanban extends Document {
     | "testing"
     | "production"
     | "completed";
-  kanban_assignedAdmin: Types.ObjectId;
+  kanban_assignedAdmin?: Types.ObjectId | null;
   kanban_completedOn: Date | null;
   kanban_deletedOn: Date | null;
   kanban_deletedBy: Types.ObjectId;
