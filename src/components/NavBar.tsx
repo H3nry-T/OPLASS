@@ -5,6 +5,7 @@ import NavLogo from "./NavLogo";
 import NavLink from "./NavLink";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
+import DashBoardDialogNav from "./DashboardNavDialog";
 
 export default function NavBar() {
   const { isLoaded, isSignedIn } = useUser();
@@ -12,6 +13,9 @@ export default function NavBar() {
     <NavigationMenu.Root className="text-gray-100 bg-gray-950 ">
       <NavigationMenu.List className="flex items-center justify-between gap-8 px-5 py-4 mx-auto max-w-7xl ">
         <NavigationMenu.Item className="flex items-center gap-4 font-semibold">
+          <div className="block md:hidden hover:cursor-pointer">
+            <DashBoardDialogNav />
+          </div>
           <NavLogo />
           <NavLink href="/dashboard/home">dashboard</NavLink>
         </NavigationMenu.Item>
