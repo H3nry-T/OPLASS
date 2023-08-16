@@ -1,3 +1,4 @@
+"use client";
 import * as Dialog from "@radix-ui/react-dialog";
 export default function DashBoardDialogNav() {
   return (
@@ -18,12 +19,32 @@ export default function DashBoardDialogNav() {
           />
         </svg>
       </Dialog.Trigger>
-      <Dialog.Portal className="bg-red-500">
-        <Dialog.Overlay className="fixed inset-0 w-full h-full bg-gray-500/70" />
-        <Dialog.Content className="w-full h-full p-10 bg-gray-700 border-red-500">
-          <Dialog.Title>title</Dialog.Title>
-          <Dialog.Description>description</Dialog.Description>
-          <Dialog.Close>close</Dialog.Close>
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-gray-700/70 data-[state=open]:animate-overlayShow fixed inset-0" />
+        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-gray-950  p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+          <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
+            Edit profile
+          </Dialog.Title>
+          <Dialog.Description className="mt-[10px] mb-5 text-[15px] leading-normal">
+            Make changes to your profile here. Click save when you're done.
+          </Dialog.Description>
+
+          <Dialog.Close className="hover:bg-gray-800">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

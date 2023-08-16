@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ))}
           </ul>
         </aside>
-        <aside className="relative z-50 w-full md:hidden">
+        <aside className="w-full md:hidden">
           <ul className="flex flex-col gap-10 px-5 py-10 text-lg font-semibold tracking-tight border-r-4 ">
             {dashboardNavigation.map((item) => (
               <li key={item.title} className="capitalize">
