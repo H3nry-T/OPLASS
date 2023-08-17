@@ -14,6 +14,8 @@ module.exports = {
       },
       animation: {
         blob: "blob 7s infinite",
+        slideDown: "slideDown 0.3s ease-in-out",
+        slideUp: "slideUp 0.3s ease-in-out",
       },
       keyframes: {
         blob: {
@@ -28,6 +30,22 @@ module.exports = {
           },
           "100%": {
             transform: "translate(0px, 0px) scale(1)",
+          },
+        },
+        slideDown: {
+          "0%": {
+            transform: "translateY(-100%)",
+          },
+          "100%": {
+            transform: "translateY(0%)",
+          },
+        },
+        slideUp: {
+          "0%": {
+            transform: "translateY(0)",
+          },
+          "100%": {
+            transform: "translateY(-100%)",
           },
         },
       },

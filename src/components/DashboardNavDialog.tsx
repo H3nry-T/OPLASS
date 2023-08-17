@@ -1,9 +1,11 @@
 "use client";
+import { dashboardNavigation } from "@/constants/landingPageConstants";
 import * as Dialog from "@radix-ui/react-dialog";
+import Link from "next/link";
 export default function DashBoardDialogNav() {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex items-center">
+      <Dialog.Trigger className="flex items-center rounded-lg hover:bg-gray-700/70">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -20,23 +22,30 @@ export default function DashBoardDialogNav() {
         </svg>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-gray-700/70 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-gray-950  p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-          <Dialog.Title className="m-0 text-2xl font-medium ">
-            Nav menu
-          </Dialog.Title>
+        <Dialog.Overlay className="fixed inset-0 bg-gray-700/70" />
+        <Dialog.Content className="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp fixed top-0 left-0  w-[100vw] rounded-sm bg-gray-950 p-4 focus:outline-none">
           <Dialog.Description
             className="mt-[10px] mb-5 text-lg leading-normal"
             asChild
           >
-            <ul>
-              <li>home</li>
-              <li>analytics</li>
-              <li>settings</li>
-            </ul>
+            <aside>
+              <ul className="flex flex-col gap-8 px-5 py-10 text-lg font-semibold tracking-tight">
+                {dashboardNavigation.map((item) => (
+                  <Dialog.Close asChild key={item.title}>
+                    <Link
+                      href={`${item.title}`}
+                      className="max-w-4xl px-2 py-1 capitalize rounded-lg hover:bg-gray-700/70"
+                    >
+                      {item.title}
+                      <li key={item.title}></li>
+                    </Link>
+                  </Dialog.Close>
+                ))}
+              </ul>
+            </aside>
           </Dialog.Description>
 
-          <Dialog.Close className="hover:bg-gray-800">
+          <Dialog.Close className="absolute rounded-lg hover:bg-gray-800 top-5 left-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

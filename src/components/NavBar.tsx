@@ -6,6 +6,7 @@ import NavLink from "./NavLink";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import DashBoardDialogNav from "./DashboardNavDialog";
+import Link from "next/link";
 
 export default function NavBar() {
   const { isLoaded, isSignedIn } = useUser();
@@ -22,18 +23,18 @@ export default function NavBar() {
         <NavigationMenu.Item className="flex items-center gap-2 text-lg font-semibold tracking-tight capitalize">
           {!isSignedIn || !isLoaded ? (
             <>
-              <NavigationMenu.Link
+              <Link
                 href="/sign-in"
                 className="px-3 py-1 leading-none rounded-lg hover:bg-gray-800/90"
               >
                 login
-              </NavigationMenu.Link>
-              <NavigationMenu.Link
+              </Link>
+              <Link
                 href="/sign-up"
                 className="px-3 py-1 leading-none text-gray-400 rounded-lg hover:bg-gray-800/90"
               >
                 signup
-              </NavigationMenu.Link>
+              </Link>
             </>
           ) : (
             <UserButton
