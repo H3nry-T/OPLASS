@@ -28,7 +28,7 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`text-gray-200 ${inter.className}`}>
           <header>
             <NavBar />
           </header>
